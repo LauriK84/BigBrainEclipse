@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+    <title>Hello App Engine</title>
+    
+  
+  <script>
+function sendData(){
+	//Create a new Javascript object
+	var fish=new Object();
+	fish.breed=document.getElementById("breed").value;
+	
+	
+	var jsonPrey=JSON.stringify(fish);
+	var xhttp = new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function() {
+	  if (this.readyState == 4 && this.status == 200) {
+	   document.getElementById("responseView").innerHTML = this.responseText;
+	   var returned=JSON.parse(this.responseText);
+	   document.getElementById("inparts").innerHTML="ID="+returned.id+" Breed="+returned.breed+";
+	  }
+	};
+	
+	xhttp.open("POST","./rest/fishservice/addobjectfish",true);
+	xhttp.setRequestHeader("Content-type","application/json");
+	xhttp.send(jsonPrey);
+ 
+	
+}
+</script>
+  
+    
+  </head>
+
+  <body>
+
+<form action=".rest/fishservice/addfish" method="post">
+	Breed: <input type="text" name='breed' value=''><br>  
+	<input type="submit" name="ok" value="ok"><br>
+
+
+</form>
+
+
+    <h1>Enter fish to list!</h1>
+
+	<form action="/rest/fishservice/addobjectfish" method="post">
+	Breed: <input type="text" name='breed' value=''><br> 
+	<input type="button" name="ok" value="ok" onclick="sendData(this.form);"><br>
+	</form>
+	<p id="result">
+    <table>
+      <tr>
+        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
+      </tr>
+      <tr>
+        <td><a href='/hello'>The list of fishes</a></td>
+      </tr>
+    </table>
+  </body>
+</html>
