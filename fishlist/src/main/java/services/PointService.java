@@ -54,8 +54,8 @@ public Point addPoint(@FormParam("point") String point) {
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/addobjectpoint")
-public Point objectFish(Point point) {
-	String sql="insert into leaderdoard(point) values(?)";
+public Point objectFish(Point username, Point point) {
+	String sql="insert into leaderdoard(username, point) values(?,?)";
 
 	Connection conn=null;
 	try {
@@ -71,12 +71,13 @@ public Point objectFish(Point point) {
 	PreparedStatement ps;
 	try {
 		ps = conn.prepareStatement(sql);
-		
+		ps.setString(1, point.getUsername());
 		ps.setInt(1, (int) point.getPoint());
 		ps.execute();
 	} catch(SQLException e) {
 		e.printStackTrace();
 	}
+	point.setPoint(point.getUsername());
 	point.setPoint((int) point.getPoint());
 	
 	return point;
@@ -151,6 +152,7 @@ public ArrayList<Point> getAll() {
 		while (RS.next()) {
 			Point pt=new Point();
 			pt.setId(RS.getInt("id"));
+			pt.setPoint(RS.getString("username"));
 			pt.setPoint(RS.getString("point"));
 			list.add(pt);
 		}

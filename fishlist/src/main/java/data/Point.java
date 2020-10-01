@@ -4,6 +4,7 @@ public class Point {
 
 	private int id;
 	private int point;
+	private String username;
 	private String question;
 	private String correct;
 	private String false1;
@@ -60,6 +61,12 @@ public class Point {
 	}
 	public void setFalse3(String false3) {
 		this.false3 =false3;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username =username;
 	}
 	
 	public String toString() {
