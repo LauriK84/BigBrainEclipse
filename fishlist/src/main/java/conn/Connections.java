@@ -14,7 +14,7 @@ public class Connections {
 		// The configuration object specifies behaviors for the connection pool.
 		HikariConfig config = new HikariConfig();
 		 // Configure which instance and what database user to connect with.
-		config.setJdbcUrl(String.format("jdbc:mysql:///%s", "bigbrainmysql")); //e.g. hellogoogle1
+		config.setJdbcUrl(String.format("jdbc:mysql:///%s", "bigbrain")); //e.g. hellogoogle1
 		config.setUsername("root"); // e.g. "root", "postgres"
 		config.setPassword("salasana"); // e.g. "my-password"
 		

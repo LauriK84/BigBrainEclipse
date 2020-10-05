@@ -152,8 +152,8 @@ public ArrayList<Point> getAll() {
 			while (RS.next()) {
 				Point pt=new Point();
 				pt.setId(RS.getInt("id"));
-				pt.setUsername(RS.getString("username"));
-				pt.setPoint(RS.getInt("point"));
+				pt.setUsername(RS.getString("name"));
+				pt.setPoint(RS.getInt("score"));
 				list.add(pt);
 			}
 		}
