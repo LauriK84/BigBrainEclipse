@@ -152,8 +152,8 @@ public ArrayList<Point> getAll() {
 		while (RS.next()) {
 			Point pt=new Point();
 			pt.setId(RS.getInt("id"));
-			pt.setPoint(RS.getString("username"));
-			pt.setPoint(RS.getString("point"));
+			pt.setUsername(RS.getString("username"));
+			pt.setPoint(RS.getInt("point"));
 			list.add(pt);
 		}
 	} catch (SQLException e) {
