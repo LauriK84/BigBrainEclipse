@@ -128,44 +128,43 @@ public Point delete(@PathParam("p1") int id) {
 }
 @GET
 @Produces(MediaType.APPLICATION_JSON)//Method returns object as a JSON string
-@Path("/getAll")
+@Path("/getall")
 public ArrayList<Point> getAll() {
 	String sql="select * from leaderboard";
 	ResultSet RS=null;
 	ArrayList<Point> list=new ArrayList<>();
 	Connection conn=null;
 	try {
-	    if (SystemProperty.environment.value() ==SystemProperty.Environment.Value.Production) {  
+	    if (SystemProperty.environment.value()==SystemProperty.Environment.Value.Production) {  
 	    	conn = Connections.getProductionConnection();
 	    }
 	    else {
 	    	conn = Connections.getDevConnection();
 	    }
 	} catch (Exception e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	Statement stmt;
+	 
 	try {
-		stmt = conn.createStatement();
-		RS=stmt.executeQuery(sql);
-		while (RS.next()) {
-			Point pt=new Point();
-			pt.setId(RS.getInt("id"));
-			pt.setUsername(RS.getString("username"));
-			pt.setPoint(RS.getInt("point"));
-			list.add(pt);
+    	if (conn!=null) {
+			Statement stmt = conn.createStatement();
+			RS=stmt.executeQuery(sql);
+			while (RS.next()) {
+				Point pt=new Point();
+				pt.setId(RS.getInt("id"));
+				pt.setUsername(RS.getString("username"));
+				pt.setPoint(RS.getInt("point"));
+				list.add(pt);
+			}
 		}
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	if (conn!=null) {
 		try {
 			conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 	return list;
