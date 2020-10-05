@@ -13,7 +13,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.utils.*;
 
 import conn.Connections;
-import data.Point;
+import data.*;
 
 @Path("/brainservice")
 public class PointService {
@@ -129,10 +129,10 @@ public Point delete(@PathParam("p1") int id) {
 @GET
 @Produces(MediaType.APPLICATION_JSON)//Method returns object as a JSON string
 @Path("/getall")
-public ArrayList<Point> getAll() {
+public ArrayList<Score> getAll() {
 	String sql="select * from leaderboard";
 	ResultSet RS=null;
-	ArrayList<Point> list=new ArrayList<>();
+	ArrayList<Score> list=new ArrayList<>();
 	Connection conn=null;
 	try {
 	    if (SystemProperty.environment.value()==SystemProperty.Environment.Value.Production) {  
@@ -150,10 +150,10 @@ public ArrayList<Point> getAll() {
 			Statement stmt = conn.createStatement();
 			RS=stmt.executeQuery(sql);
 			while (RS.next()) {
-				Point pt=new Point();
+				Score pt=new Score();
 				pt.setId(RS.getInt("id"));
-				pt.setUsername(RS.getString("name"));
-				pt.setPoint(RS.getInt("score"));
+				pt.setName(RS.getString("name"));
+				pt.setScore(RS.getInt("score"));
 				list.add(pt);
 			}
 		}
