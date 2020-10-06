@@ -166,6 +166,7 @@ public class PointService {
 		return list;
 	}
 
+	// Pieni kommentti
 	@GET
 	@Produces(MediaType.APPLICATION_JSON) // Method returns object as a JSON string
 	@Path("/get5")
