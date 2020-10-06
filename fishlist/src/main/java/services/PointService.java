@@ -168,6 +168,49 @@ public class PointService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON) // Method returns object as a JSON string
+	@Path("/get5")
+	public ArrayList<Score> get5() {
+		String sql = "select * from leaderboard ORDER BY score DESC LIMIT 5";
+		ResultSet RS = null;
+		ArrayList<Score> list = new ArrayList<>();
+		Connection conn = null;
+		try {
+			if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+				conn = Connections.getProductionConnection();
+			} else {
+				conn = Connections.getDevConnection();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try {
+			if (conn != null) {
+				Statement stmt = conn.createStatement();
+				RS = stmt.executeQuery(sql);
+				while (RS.next()) {
+					Score pt = new Score();
+					pt.setId(RS.getInt("id"));
+					pt.setName(RS.getString("name"));
+					pt.setScore(RS.getInt("score"));
+					list.add(pt);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON) // Method returns object as a JSON string
 	@Path("/getAllMovie")
 	public ArrayList<Question> getAllMovie() {
 		String sql = "select * from movie";
