@@ -680,6 +680,8 @@ public class PointService {
 		return list;
 	}
 	
+	// Moi Lauri :)
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON) // Method returns object as a JSON string
 	@Path("/get10Geography")
