@@ -51,9 +51,9 @@ public class PointService {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/addobjectpoint")
-	public Score objectFish(Score score) {
-		String sql = "insert into leaderboard(username, point) values(?,?)";
+	@Path("/addScore")
+	public Score addScore(Score score) {
+		String sql = "insert into leaderboard(name, score) values(?,?)";
 
 		Connection conn = null;
 		try {
@@ -69,13 +69,11 @@ public class PointService {
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, score.getName());
-			ps.setInt(2, (int) score.getScore());
+			ps.setInt(2, score.getScore());
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		score.setScore(score.getName());
-		score.setScore((int) score.getScore());
 
 		return score;
 	}
